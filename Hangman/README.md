@@ -1,4 +1,4 @@
-# Robert J Dunski Python Repo
+# Robert J Dunski Python Repo - Hangman
 
 ### Hangman game written in *Python3* for Advanced Programming: Python, with 3 difficulties: **easy**, **medium**, and **hard**. 
 ------
