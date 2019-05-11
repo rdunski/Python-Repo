@@ -1,10 +1,40 @@
 import string
 import sys
+import re
 
-compDict = {"null":0}
+compList = []
 
 list=["null"]
 count=0
+
+def partition(sortList,start,end):
+    i = (start-1)
+    pivot = sortList[end]
+
+    for j in range(start,end):
+        if sortList[j][1] < pivot[1]:
+            if sortList[j][2] <= pivot[2]/6.75 or sortList[j][2]*6.75 <= pivot[2]:
+                i = i+1
+                sortList[i],sortList[j] = sortList[j],sortList[i]
+
+        if sortList[j][2] <= pivot[2]/6.75 or sortList[j][2]*6.75 <= pivot[2]:
+                i = i+1
+                sortList[i],sortList[j] = sortList[j],sortList[i]
+
+    sortList[i+1],sortList[end] = sortList[end],sortList[i+1]
+    return (i+1)
+
+def quickSort(sortList,start,end):
+    try:
+        if sortList[start][1] < sortList[end][1]/6.75 or sortList[start][1]*6.75 < sortList[end][1]:
+            pi = partition(sortList,start,end)
+
+            quickSort(sortList,start,pi-1)
+            quickSort(sortList,pi+1, end)
+
+            return sortList
+    except:
+        pass
 
 for line in sys.stdin:
     count=int(line)
@@ -21,23 +51,25 @@ for line in sys.stdin:
     if count == 0:
         break
 
-print(list)
+secondList=list
 
 for line in list:
     try:
         line=int(line)
-        if "null" in compDict.keys():
-            compDict[line]=line
-            compDict.pop("null")
-        else:
-            compDict[line]=line
+        compList.append((line,line,line))
     except ValueError:
-        newline = line.split("^")
-        newline.reverse()
-        sum=pow(int(newline[1]),int(newline[0]))
-        if "null" in compDict.keys():
-            compDict[line]=sum
-            compDict.pop("null")
-        else:
-            compDict[line]=sum
-        print(compDict)
+        numline = line.split("^")
+        base=int(numline[0])
+        numline.reverse()
+
+        sum=pow(int(numline[1]),int(numline[0]))
+
+        compList.append((line,base,sum))
+
+        print(compList)
+
+quickSort(compList,0,len(compList)-1)
+
+for line,base,sum in compList:
+    print(line)
+print(compList)
