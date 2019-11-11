@@ -9,9 +9,9 @@ server_address = ('localhost', 55555)
 sock.bind(server_address)
 sock.listen(1)
 
+print("Waiting for file...")
 connection, client_address = sock.accept()
 
-print("Waiting for file...")
 def receive_bytes(blocksize=1024):
     while True:
         block = bytearray(connection.recv(blocksize))   #read over socket
