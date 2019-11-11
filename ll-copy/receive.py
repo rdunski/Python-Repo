@@ -1,7 +1,9 @@
 import socket
 
-outfile = open("/home/esquire/Documents/copyTest", "wb")
-
+try:
+    outfile = open("/home/esquire/Documents/copyTest", "wb+")
+except IOError:
+    print("Creating copyTest file @ /home/esquire/Documents/copyTest")
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = ('localhost', 55555)
 sock.bind(server_address)
