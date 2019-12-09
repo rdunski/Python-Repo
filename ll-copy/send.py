@@ -1,9 +1,12 @@
 import socket
+import sys
 
-infile = open("/home/esquire/Documents/test", "rb")
+filearg = sys.argv[1]
+
+infile = open(filearg, "rb")
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_address = ('localhost', 55555)
+server_address = ('10.5.104.22', 55555)
 sock.connect(server_address)
 
 def read_bytes(filename, blocksize=1024):
